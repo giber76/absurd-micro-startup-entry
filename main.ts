@@ -31,6 +31,13 @@ if (
   );
 }
 
+// Second guard: the pitch must already be clean — no leading/trailing
+// whitespace and it must end with a full stop, so the written line is
+// exactly the intended single sentence with nothing trimmed away.
+if (ENTRY_LINE !== ENTRY_LINE.trim() || !ENTRY_LINE.endsWith(".")) {
+  throw new Error("entry must be trimmed and end with a full stop");
+}
+
 const outputDir = process.env.OUTPUT_DIR ?? "/output";
 mkdirSync(outputDir, { recursive: true });
 writeFileSync(join(outputDir, "entry.txt"), ENTRY_LINE, "utf8");
